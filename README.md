@@ -1,7 +1,7 @@
 <!--
  * @Author: Jane
  * @Date: 2020-08-06 10:07:26
- * @LastEditTime: 2020-08-06 14:03:18
+ * @LastEditTime: 2020-08-06 17:02:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \koa2-weibo-appe:\self\AAAAA\trylang-ui\README.md
@@ -37,3 +37,17 @@ width: $fancybox-width;
 接下来我们将学习嵌套导入，它允许只在某一个选择器的范围内导入sass局部文件。
 
 ## 1.3 `yarn add classnames` ， `yarn add @types/classnames` 帮助添加classname，记得安装下types;
+
+# typeScript
+
+## 1. type:类型别名；Partial；交叉类型
+``
+  // type: 类型别名，ts通过type关键字对比较长得类型重命名
+  // AnchorHTMLAttributes: a链接属性
+  // & ： 交叉类型，A & B具备 A和B的所有属性
+  // Partial：所有属性都是可选项
+  // ButtonProps 为的是用户可以自由给Button添加属性
+  type NativeButtonProps = BaseButtonProps & React.ButtonHTMLAttributes<HTMLElement>;
+  type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLElement>;
+  type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
+``
