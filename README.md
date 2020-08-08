@@ -1,7 +1,7 @@
 <!--
  * @Author: Jane
  * @Date: 2020-08-06 10:07:26
- * @LastEditTime: 2020-08-06 17:02:37
+ * @LastEditTime: 2020-08-08 11:33:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \koa2-weibo-appe:\self\AAAAA\trylang-ui\README.md
@@ -38,6 +38,37 @@ width: $fancybox-width;
 
 ## 1.3 `yarn add classnames` ， `yarn add @types/classnames` 帮助添加classname，记得安装下types;
 
+## 1.4 sass 中的遍历
+1. 数组遍历
+   ``
+    $sizes: 40px, 50px, 80px;
+    @each $size in $sizes {
+      .icon-#{size} {
+        font-size: $size;
+        height: $size;
+      }
+    }
+   ``
+
+2. 对象Map遍历
+   ``
+    $icons:("eye": "\f112", "start": "\f12e", "stop": "\f12f");
+    @each $name, $glyph in $icons {
+      .icon-#{name}:before {
+        display: inline-block;
+        font-family: "Icon Font";
+        content: $glyph;
+      }
+    }
+   ``
+
+## 1.5 display: none; 与动画效果的关系
+  当display 从none到block的变化，任何动画都不起作用。 
+  因为display不是一个标准的支持animation的属性，所以transition不起作用。
+  还有就是block和属性是同时变化，所以看不到效果。
+
+
+
 # typeScript
 
 ## 1. type:类型别名；Partial；交叉类型
@@ -51,3 +82,46 @@ width: $fancybox-width;
   type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLElement>;
   type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
 ``
+
+
+# 字体图标
+## 1. react-fontawesome
+
+
+# react
+
+## 1. 类型断言
+``
+  // cloneElement 方法用于去除写在menuItem组件上的index属性，cloneElement（第一个是要赋值的属性，第二个是新增属性）
+  return React.cloneElement(childElement, {
+    index: index.toString()
+  });
+``
+
+``
+  const context = useContext(MenuContext);
+  // 因为context.defaultOpenSubMenus 是可选，默认类型为字符串数组+undefined。
+  // 我们不需要undefined，所以用到类型断言，指定为字符串数组类型
+  index = index as string;
+  const defaultOpenSubMenus = context.defaultOpenSubMenus as Array<string>;
+  let isOpened = (index && context.mode === 'vertical') ? defaultOpenSubMenus.includes(index) : false;
+  const [menuOpen, setOpen] = useState(isOpened);
+``
+
+## 2. 设置默认值
+``
+// 默认值一定要加，一为了代码健壮性；
+// 二、defaultOpenSubMenus如果不设默认值且在代码中没有使用，直接报undefined，即便后面做了类型断言也无用，还是会报错
+Menu.defaultProps = {
+  defaultIndex: '0',
+  mode: 'horizontal',
+  defaultOpenSubMenus: []
+}
+``
+
+## 3. 静态属性
+// 子组件设置静态属性，帮助父组件类型判断
+MenuItem.displayName = 'MenuItem';
+
+## 4. react 动画
+`npm install react-transition-group @types/react-transition-group  --save`

@@ -4,6 +4,12 @@ import Menu from './components/Menu/menu';
 import MenuItem from './components/Menu/menuItem';
 import SubMenu from './components/Menu/subMenu';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import Icon from './components/Icon/icon';
+library.add(fas, faCoffee)
+
 function App() {
   return (
     <div className="App">
@@ -11,6 +17,8 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+
+        <Icon icon={["fas", "coffee"]} theme='danger' size="10x"></Icon>
 
         <Menu defaultIndex={'0'} onSelect={(index) => {console.log(index)}} mode="vertical" defaultOpenSubMenus={['2']} data-testid="test-menu">
           <MenuItem>Menu0</MenuItem>
